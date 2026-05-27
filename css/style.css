@@ -1,4 +1,34 @@
-/* 基础样式 */
+:root {
+    --bg-start: #0f0c29;
+    --bg-mid: #302b63;
+    --bg-end: #24243e;
+    --text-primary: #fff;
+    --text-secondary: rgba(255,255,255,0.6);
+    --text-muted: rgba(255,255,255,0.5);
+    --link-color: rgba(255,255,255,0.7);
+    --link-hover: #00d2ff;
+    --card-bg: transparent;
+    --game-overlay: rgba(0,0,0,0.3);
+    --score-bg: rgba(0,0,0,0.5);
+    --theme-btn-bg: rgba(255,255,255,0.1);
+    --theme-btn-hover: rgba(255,255,255,0.25);
+}
+
+body.light-mode {
+    --bg-start: #e8ecf1;
+    --bg-mid: #d5dde8;
+    --bg-end: #c9d2e0;
+    --text-primary: #1a1a2e;
+    --text-secondary: rgba(26,26,46,0.6);
+    --text-muted: rgba(26,26,46,0.5);
+    --link-color: rgba(26,26,46,0.7);
+    --link-hover: #3a7bd5;
+    --game-overlay: rgba(255,255,255,0.3);
+    --score-bg: rgba(255,255,255,0.7);
+    --theme-btn-bg: rgba(0,0,0,0.08);
+    --theme-btn-hover: rgba(0,0,0,0.15);
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
@@ -7,15 +37,25 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    background: linear-gradient(135deg, var(--bg-start), var(--bg-mid), var(--bg-end));
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     overflow-x: hidden;
+    transition: background 0.4s;
 }
 
-/* 主标题 */
+#starfield {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
 .card {
     text-align: center;
-    color: #fff;
+    color: var(--text-primary);
     z-index: 10;
 }
 
@@ -39,7 +79,20 @@ h1 {
 .subtitle {
     margin-top: 1rem;
     font-size: 1.2rem;
-    color: rgba(255,255,255,0.6);
+    color: var(--text-secondary);
+    min-height: 1.5em;
+}
+
+.subtitle.typing::after {
+    content: '|';
+    animation: blink 0.7s step-end infinite;
+    margin-left: 2px;
+    color: var(--text-secondary);
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
 
 .social-links {
@@ -50,18 +103,17 @@ h1 {
 }
 
 .social-links a {
-    color: rgba(255,255,255,0.7);
+    color: var(--link-color);
     text-decoration: none;
     font-size: 1rem;
     transition: color 0.2s, transform 0.2s;
 }
 
 .social-links a:hover {
-    color: #00d2ff;
+    color: var(--link-hover);
     transform: translateY(-2px);
 }
 
-/* 日期时间 */
 .datetime {
     margin-top: 2rem;
     font-size: 1.5rem;
@@ -69,9 +121,9 @@ h1 {
     padding: 15px 30px;
     border-radius: 10px;
     z-index: 10;
-    background: linear-gradient(90deg, 
-        #ff0000, #ff7f00, #ffff00, #00ff00, 
-        #0000ff, #4b0082, #9400d3, #ff1493, 
+    background: linear-gradient(90deg,
+        #ff0000, #ff7f00, #ffff00, #00ff00,
+        #0000ff, #4b0082, #9400d3, #ff1493,
         #ff1493, #9400d3, #4b0082, #0000ff,
         #00ff00, #ffff00, #ff7f00, #ff0000);
     background-size: 200% auto;
@@ -91,7 +143,6 @@ h1 {
     100% { background-position: 200% center; }
 }
 
-/* 鼠标彩虹拖尾 */
 .rainbow-dot {
     position: fixed;
     width: 12px;
@@ -107,20 +158,61 @@ h1 {
     100% { opacity: 0; transform: scale(0.3); }
 }
 
-/* 游戏区域 */
+#weather {
+    position: fixed;
+    top: 15px;
+    right: 55px;
+    display: none;
+    align-items: center;
+    gap: 6px;
+    z-index: 100;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    background: var(--theme-btn-bg);
+    padding: 6px 14px;
+    border-radius: 20px;
+    backdrop-filter: blur(4px);
+    transition: background 0.3s, color 0.3s;
+}
+
+#weatherIcon { font-size: 1.1rem; }
+
+#themeToggle {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 100;
+    background: var(--theme-btn-bg);
+    border: none;
+    color: var(--text-primary);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#themeToggle:hover {
+    background: var(--theme-btn-hover);
+    transform: scale(1.1);
+}
+
 .games-section {
     margin-top: 2rem;
     z-index: 10;
 }
 
 .games-title {
-    color: rgba(255,255,255,0.8);
+    color: var(--text-secondary);
     font-size: 1rem;
     text-align: center;
     margin-bottom: 12px;
 }
 
-/* 三按钮容器：水平排列 */
 .game-buttons {
     display: flex;
     flex-direction: row;
@@ -129,7 +221,6 @@ h1 {
     align-items: center;
 }
 
-/* 按钮基础样式：完全统一 */
 .game-btn {
     padding: 10px 20px;
     border: 2px solid transparent;
@@ -142,7 +233,6 @@ h1 {
     color: #fff;
     text-align: center;
     white-space: nowrap;
-    /* 绝对不会有position或animation干扰 */
     position: static;
     display: block;
 }
@@ -156,7 +246,6 @@ h1 {
     transform: scale(0.96);
 }
 
-/* 三按钮颜色 */
 .btn-fireworks {
     background: linear-gradient(135deg, #ff6b6b, #feca57);
 }
@@ -169,7 +258,6 @@ h1 {
     background: linear-gradient(135deg, #00d2d3, #01a3a4);
 }
 
-/* 游戏容器 */
 .game-container {
     position: fixed;
     top: 0;
@@ -182,10 +270,9 @@ h1 {
 
 .game-container.active {
     pointer-events: auto;
-    background: rgba(0,0,0,0.3);
+    background: var(--game-overlay);
 }
 
-/* 关闭按钮 */
 .close-btn {
     position: fixed;
     top: 20px;
@@ -206,7 +293,6 @@ h1 {
     background: rgba(255,255,255,0.4);
 }
 
-/* 烟花粒子 */
 .firework-particle {
     position: absolute;
     width: 6px;
@@ -215,7 +301,6 @@ h1 {
     pointer-events: none;
 }
 
-/* 泡泡样式 */
 .game-bubble {
     position: absolute;
     border-radius: 50%;
@@ -242,23 +327,22 @@ h1 {
     100% { transform: scale(1.5); opacity: 0; }
 }
 
-/* 游戏分数显示 */
 .game-score {
     position: fixed;
     top: 80px;
     left: 50%;
     transform: translateX(-50%);
-    color: #fff;
+    color: var(--text-primary);
     font-size: 1.4rem;
     font-weight: bold;
     pointer-events: none;
     z-index: 60;
-    background: rgba(0,0,0,0.5);
+    background: var(--score-bg);
     padding: 10px 20px;
     border-radius: 10px;
+    transition: background 0.3s, color 0.3s;
 }
 
-/* 反应测试方块 */
 .reaction-box {
     position: fixed;
     top: 50%;
@@ -284,7 +368,6 @@ h1 {
 .reaction-go { background: #10ac84; }
 .reaction-result { background: #5f27cd; }
 
-/* 分数弹出 */
 .score-popup {
     position: fixed;
     font-weight: bold;
@@ -299,7 +382,16 @@ h1 {
     100% { opacity: 0; transform: translateY(-50px) scale(1.5); }
 }
 
-/* 右下角信息 */
+#visitCount {
+    position: fixed;
+    bottom: 15px;
+    left: 15px;
+    z-index: 100;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    transition: color 0.3s;
+}
+
 .footer-info {
     position: fixed;
     bottom: 15px;
@@ -307,20 +399,75 @@ h1 {
     text-align: right;
     z-index: 100;
     font-size: 0.75rem;
-    color: rgba(255,255,255,0.5);
-}
-
-.footer-info a {
-    color: rgba(255,255,255,0.6);
-    text-decoration: none;
-}
-
-.footer-info a:hover {
-    color: #00d2ff;
+    color: var(--text-muted);
 }
 
 .ip-location {
     margin-bottom: 5px;
     font-size: 0.8rem;
-    color: rgba(255,255,255,0.6);
+    color: var(--text-secondary);
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+    .emoji {
+        font-size: 2rem;
+    }
+    .subtitle {
+        font-size: 1rem;
+    }
+    .datetime {
+        font-size: 1rem;
+        padding: 10px 16px;
+        margin-top: 1.5rem;
+    }
+    .game-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .game-btn {
+        min-width: 140px;
+        font-size: 1rem;
+        padding: 12px 24px;
+    }
+    .games-section {
+        margin-top: 1.5rem;
+    }
+    #weather {
+        font-size: 0.75rem;
+        padding: 4px 10px;
+        top: 12px;
+        right: 50px;
+    }
+    #themeToggle {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+        top: 12px;
+        right: 12px;
+    }
+    #visitCount {
+        font-size: 0.65rem;
+    }
+    .footer-info {
+        font-size: 0.65rem;
+    }
+    .ip-location {
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 380px) {
+    h1 {
+        font-size: 2rem;
+    }
+    .emoji {
+        font-size: 1.5rem;
+    }
+    .datetime {
+        font-size: 0.85rem;
+        padding: 8px 12px;
+    }
 }
