@@ -7,7 +7,7 @@
     --text-muted: rgba(255,255,255,0.5);
     --link-color: rgba(255,255,255,0.7);
     --link-hover: #00d2ff;
-    --card-bg: transparent;
+    --card-bg: rgba(15, 12, 41, 0.6);
     --game-overlay: rgba(0,0,0,0.3);
     --score-bg: rgba(0,0,0,0.5);
     --theme-btn-bg: rgba(255,255,255,0.1);
@@ -27,6 +27,18 @@ body.light-mode {
     --score-bg: rgba(255,255,255,0.7);
     --theme-btn-bg: rgba(0,0,0,0.08);
     --theme-btn-hover: rgba(0,0,0,0.15);
+    --card-bg: rgba(232, 236, 241, 0.85);
+}
+
+body.light-mode .project-card {
+    border-color: rgba(0,0,0,0.08);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+body.light-mode .project-card:hover {
+    border-color: rgba(0,0,0,0.15);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -452,50 +464,49 @@ h1 {
 }
 
 .projects-title {
-    color: var(--text-secondary);
-    font-size: 0.85rem;
-    letter-spacing: 0.15em;
+    background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+    font-size: 1.1rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
     text-align: center;
     margin-bottom: 20px;
-    text-transform: uppercase;
+}
+
+.projects-title::before {
+    content: '// ';
+    color: rgba(0,210,255,0.4);
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+    -webkit-text-fill-color: initial;
 }
 
 .project-card {
-    border: 1px solid rgba(255,255,255,0.06);
+    border: 1px solid rgba(0,210,255,0.12);
     border-radius: 16px;
     padding: 20px 22px;
     margin-bottom: 14px;
     transition: all 0.25s;
-    position: relative;
-}
-
-.project-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 16px;
-    background: var(--theme-btn-bg);
-    z-index: -1;
-}
-
-.project-card::after {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    border-radius: 17px;
-    background: linear-gradient(135deg, rgba(0,210,255,0.1), transparent 50%, rgba(58,123,213,0.05));
-    z-index: -1;
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     opacity: 0;
-    transition: opacity 0.25s;
+    transform: translateY(16px);
+    animation: cardFadeIn 0.5s ease forwards;
 }
 
-.project-card:hover::after {
-    opacity: 1;
+.project-card:nth-child(2) { animation-delay: 0.12s; }
+.project-card:nth-child(3) { animation-delay: 0.24s; }
+
+@keyframes cardFadeIn {
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .project-card:hover {
-    transform: translateY(-3px);
-    border-color: rgba(0,210,255,0.15);
+    border-color: rgba(0,210,255,0.35);
+    box-shadow: 0 0 20px rgba(0,210,255,0.08), 0 8px 32px rgba(0,0,0,0.3);
+    transform: translateY(-4px);
 }
 
 .project-header {
@@ -534,10 +545,13 @@ h1 {
 .tech-tag {
     display: inline-block;
     padding: 3px 10px;
-    border-radius: 6px;
+    border-radius: 20px;
     font-size: 0.72rem;
-    background: rgba(0,210,255,0.08);
-    color: #00d2ff;
+    background: rgba(0,210,255,0.06);
+    color: rgba(0,210,255,0.85);
+    border: 1px solid rgba(0,210,255,0.1);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     font-weight: 500;
     font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
 }
@@ -547,14 +561,23 @@ h1 {
     align-items: center;
     gap: 4px;
     font-size: 0.85rem;
-    color: var(--link-color);
+    color: rgba(0,210,255,0.6);
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
     text-decoration: none;
-    transition: color 0.2s, gap 0.2s;
+    transition: color 0.2s;
+}
+
+.project-link::after {
+    content: '→';
+    transition: transform 0.2s;
 }
 
 .project-link:hover {
-    color: var(--link-hover);
-    gap: 8px;
+    color: rgba(0,210,255,0.9);
+}
+
+.project-link:hover::after {
+    transform: translateX(4px);
 }
 
 @media (max-width: 600px) {
