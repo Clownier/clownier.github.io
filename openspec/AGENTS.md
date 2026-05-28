@@ -12,7 +12,7 @@ This project uses OpenSpec + Superpowers for spec-driven development.
 
 ## Conventions
 
-- **Version number**: Update `index.html` footer version (currently v1.2.0) on every change — major feature → minor bump, bugfix → patch bump
+- **Version number**: Update `index.html` footer version (currently v1.3.0) on every change — major feature → minor bump, bugfix → patch bump
 
 ## Directory Structure
 

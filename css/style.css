@@ -48,7 +48,9 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    padding-top: clamp(2rem, 6vh, 4rem);
+    padding-bottom: 4rem;
     background: linear-gradient(135deg, var(--bg-start), var(--bg-mid), var(--bg-end));
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     overflow-x: hidden;
@@ -65,10 +67,19 @@ body {
     z-index: 0;
 }
 
+.main-content {
+    width: 100%;
+    max-width: 1100px;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+}
+
 .card {
     text-align: center;
     color: var(--text-primary);
-    z-index: 10;
 }
 
 h1 {
@@ -112,7 +123,6 @@ h1 {
     display: flex;
     gap: 1rem;
     justify-content: center;
-    z-index: 10;
 }
 
 .social-links a {
@@ -133,7 +143,6 @@ h1 {
     font-weight: 600;
     padding: 15px 30px;
     border-radius: 10px;
-    z-index: 10;
     background: linear-gradient(90deg,
         #ff0000, #ff7f00, #ffff00, #00ff00,
         #0000ff, #4b0082, #9400d3, #ff1493,
@@ -216,7 +225,6 @@ h1 {
 
 .games-section {
     margin-top: 2rem;
-    z-index: 10;
 }
 
 .games-title {
@@ -457,7 +465,6 @@ h1 {
 
 .projects-section {
     margin-top: 2.5rem;
-    z-index: 10;
     max-width: 520px;
     width: 100%;
     padding: 0 20px;
@@ -580,7 +587,7 @@ h1 {
     transform: translateX(4px);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 599px) {
     h1 {
         font-size: 2.5rem;
     }
@@ -669,5 +676,34 @@ h1 {
     }
     .project-card {
         padding: 14px 14px;
+    }
+}
+
+@media (min-width: 600px) {
+    .projects-section {
+        max-width: 700px;
+    }
+    .projects-section .project-cards {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+    .projects-section .project-cards .project-card {
+        margin-bottom: 0;
+    }
+}
+
+@media (min-width: 1024px) {
+    .main-content {
+        padding: 0 40px;
+    }
+    .projects-section {
+        max-width: 960px;
+    }
+    .projects-section .project-cards {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    .bio {
+        max-width: 600px;
     }
 }
